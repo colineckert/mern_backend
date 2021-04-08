@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   Question.find()
     .then(questions => res.json(questions))
       .catch(err => res.status(404).json(err));
-})
+});
 
 router.post('/', (req, res) => {
   const newQuestion = new Question({
@@ -21,10 +21,16 @@ router.post('/', (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
+router.patch('/:question_id', (req, res) => {
+  Question.findOneAndUpdate({ _id: req.params.question_id }, { $set: req.body }, { new: true, useFindAndModify: false })
+    .then(question => res.json(question))
+      .catch(err => res.status(404).json(err));
+});
+
 router.delete('/:question_id', (req, res) => {
   Question.findOneAndDelete({ _id: req.params.question_id })
     .then(question => res.json({ _id: question._id }))
       .catch(err => res.status(404).json(err));
-})
+});
 
 module.exports = router;

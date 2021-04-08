@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const db = require('./config/keys').mongoURI;
 const questions = require('../backend/routes/api/questions');
+// any routes imported here
 
 app.use(express.json());
 
@@ -15,6 +16,7 @@ mongoose
 
 app.get('/', (req, res) => res.send("This works, huzzah!"));
 app.use('/api/questions', questions);
+// app.use additional routes go here
 
 
 const port = process.env.PORT || 5000
